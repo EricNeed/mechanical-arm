@@ -18,9 +18,9 @@ void setup(void) {
   Wire.begin(I2C_SDA, I2C_SCL);
 
   ESP32PWM::allocateTimer(0);
-	ESP32PWM::allocateTimer(1);
-	ESP32PWM::allocateTimer(2);
-	ESP32PWM::allocateTimer(3);
+	// ESP32PWM::allocateTimer(1);
+	// ESP32PWM::allocateTimer(2);
+	// ESP32PWM::allocateTimer(3);
   myservo.setPeriodHertz(50);// Standard 50hz servo
   myservo.attach(SERVO_PIN);
 
@@ -37,11 +37,12 @@ void loop(void) {
   u8g2.drawStr(0,10,"Hello World!");	// write something to the internal memory
   u8g2.sendBuffer();					// transfer internal memory to the display
 
+
+  rotation += isClockwise? 1:-1;
   if(rotation >= 180 || rotation <= 0){
     isClockwise = !isClockwise;
   }
 
-  rotation += isClockwise? 1:-1;
 
   myservo.write(rotation);
 
